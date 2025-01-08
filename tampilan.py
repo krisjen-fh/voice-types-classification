@@ -80,7 +80,7 @@ if uploaded_file is not None:
         
         if st.button("🎶 Analisis Suara"):
             with st.spinner("🎤 Menganalisis suara Anda..."):
-            time.sleep(1)  # Simulate loading time for UI purposes
+                time.sleep(1)  # Simulate loading time for UI purposes
             try:
                 print("Step 1: Pre-process")
                 output_dir_name = './output'
