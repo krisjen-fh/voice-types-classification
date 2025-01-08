@@ -1,17 +1,18 @@
-import streamlit as st
-import pyaudio
-import wave
-from pydub import AudioSegment
-from pydub.playback import play
 from PreProcess import PreProcess
 from ExtractFeatures import ExtractFeatures
+import numpy as np
+import os
+import statistics
+import streamlit as st
+import sounddevice as sd
+import numpy as np
+import wave
+from streamlit_webrtc import webrtc_streamer, WebRtcMode, ClientSettings
+from PreProcess import PreProcess
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from joblib import load
-import numpy as np
-import os
-import statistics
 
 # Custom CSS for background and font styling
 st.markdown(
