@@ -209,8 +209,6 @@ if uploaded_file is not None:
                 pred_mode = statistics.mode(label_preds)
                 print(f"pred_mode: {pred_mode}")
 
-
-
                 st.success(f"Prediksi suara Anda adalah: *{predicted_label}*")
 
             except Exception as e:
