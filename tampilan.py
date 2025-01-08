@@ -87,25 +87,21 @@ if uploaded_file is not None:
                     f.write(uploaded_file.getbuffer())
 
                 pp = PreProcess(file_name_wav, output_dir_name)
-                # Step 1: Trimmed Audio
-                trimmed_output_path = pp.trimmed_audio()
-                print(f"Step 1 - Trimmed Audio: {trimmed_output_path}")
 
-                # Step 2: Filtered Audio (LPF with cutoff frequency 3000 Hz)
+                # Filtered Audio (LPF with cutoff frequency 3000 Hz)
                 filtered_output_path = pp.filtered_audio_lpf(cutoff_freq=3000)
                 print(f"Step 2 - Filtered Audio: {filtered_output_path}")
 
-                # Step 3: Segmented Audio (max duration of 3 seconds per segment)
+                #Segmented Audio (max duration of 3 seconds per segment)
                 segmented_output_paths = pp.segmented_audio(target_sr=44100, max_duration=3)
                 print(f"Step 3 - Segmented Audio: {segmented_output_paths}")
 
-                # Step 4: Audio Length for each segment
+                #Audio Length for each segment
                 for i in segmented_output_paths:
                     audio_length = pp.get_audio_length(i)
                     print(f"Step 4 - Audio Length: {audio_length:.2f} seconds")
 
                     if audio_length < 3.00:
-                        # Check if file exists before attempting to delete
                         if os.path.exists(i):
                             try:
                                 os.remove(i)
@@ -121,7 +117,6 @@ if uploaded_file is not None:
                 label_preds = []
                 for i in segmented_output_paths:
                     ef = ExtractFeatures(i)
-                    # Extract features from the recorded audio
                     new_fhe = ef.extract_fhe()
                     new_sc = ef.extract_sc()
                     new_sb = ef.extract_sb()
@@ -209,6 +204,8 @@ if uploaded_file is not None:
                 # Instead of appending numpy array, append the prediction result (scalar)
                 pred_mode = statistics.mode(label_preds)
                 print(f"pred_mode: {pred_mode}")
+
+
 
                 st.success(f"Prediksi suara Anda adalah: *{predicted_label}*")
 
