@@ -1,8 +1,6 @@
 import librosa
 import numpy as np   
 import os
-from pydub import AudioSegment
-from pydub.silence import detect_nonsilent
 import soundfile as sf
 import librosa
 import numpy as np
@@ -13,36 +11,12 @@ class PreProcess:
         self.file_path = file_path
         self.output_dir = output_dir
     
-    def trimmed_audio(self):
-        audio = AudioSegment.from_file(self.file_path)
-
-        # Detect non-silent parts
-        nonsilent_ranges = detect_nonsilent(audio, min_silence_len=2000, silence_thresh=-40)
-
-        # Extract the first non-silent range (if any)
-        if nonsilent_ranges:
-            start_trim = nonsilent_ranges[0][0]
-            trimmed_audio = audio[start_trim:]
-        else:
-            trimmed_audio = audio
-
-        base_name = os.path.basename(self.file_path)  # Get file name
-        trimmed_name = base_name.replace(".wav", "_trimmed.wav")
-        os.makedirs(self.output_dir, exist_ok=True)  # Ensure output directory exists
-        self.output_path_trimmed = os.path.join(self.output_dir, trimmed_name)
-        if not os.path.exists(self.output_path_trimmed):
-            trimmed_audio.export(self.output_path_trimmed, format="wav")
-            print(f'Trimmed audio tersimpan pada: {self.output_path_trimmed}')
-        else:
-            print(f"File {self.output_path_trimmed} sudah ada, tidak ada file yang ditulis.")
-        return self.output_path_trimmed
-    
     def filtered_audio_lpf(self, cutoff_freq):
         """
         Apply a high-pass filter to the audio file and save the filtered version.
         """
         try:
-            file_path = self.output_path_trimmed
+            file_path = self.file_path
             # Read audio file
             audio_data, frame_rate = sf.read(file_path)
             
