@@ -212,7 +212,7 @@ if uploaded_file is not None:
     
                     st.success(f"Prediksi suara Anda adalah: *{predicted_label}*")
 
-            except Exception as e:
-                st.error(f"Terjadi kesalahan saat menganalisis suara: {e}")
+                except Exception as e:
+                    st.error(f"Terjadi kesalahan saat menganalisis suara: {e}")
     except Exception as e:
         st.error(f"Gagal mengunggah file audio: {e}")
