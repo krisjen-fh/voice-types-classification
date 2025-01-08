@@ -13,6 +13,7 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from joblib import load
+import time
 
 # Custom CSS for background and font styling
 st.markdown(
